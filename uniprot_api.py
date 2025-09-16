@@ -7,7 +7,7 @@ API_URL = "https://rest.uniprot.org/uniprotkb/search"
 
 def search_uniprot(query, limit=500):
     """
-    Searches UniProt with a given query and returns the results.
+    Searches UniProt with a given query for sequences
     """
     params = {
         "query": query,
@@ -36,10 +36,10 @@ def to_csv(data, output_file):
         print("No results found for the given query.", file=sys.stderr)
         return
 
-    # Create a DataFrame
+    #create dataframe and store the results from uniprot
     df = pd.read_csv(StringIO(data), sep='\t')
     df.rename(columns={'Protein name': 'protein_name', 'Sequence': 'sequence', 'Organism': 'organism_name', 'EC number': 'ec'}, inplace=True)
-    ##replace the 'Protein names' column title with 'name'
-    df.rename(columns={'Protein names': 'name'}, inplace=True)
+    
+    df.rename(columns={'Protein name': 'name'}, inplace=True)
     df.to_csv(output_file, index=False)
     print(f"Data saved to {output_file}")

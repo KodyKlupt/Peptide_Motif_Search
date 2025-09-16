@@ -18,7 +18,7 @@ def main():
     
     subparsers = parser.add_subparsers(dest='command', required=True, help='Available commands')
 
-    # --- Subparser for the 'convert' command ---
+    # convert command
     parser_convert = subparsers.add_parser('convert', help='Convert protein files (.pdb, .cif, .fasta) into a CSV file.')
     parser_convert.add_argument(
         '--input_folder', 
@@ -33,7 +33,7 @@ def main():
         help='Path to the output CSV file. Default: sequences.csv'
     )
 
-    # --- Subparser for the 'search' command ---
+    # search command options
     parser_search = subparsers.add_parser('search', help='Search for motifs in a CSV file of protein sequences.')
     parser_search.add_argument(
         '--motifs', 
@@ -74,7 +74,7 @@ def main():
         default='name',
         help='Name of the column containing sequence names/IDs')
 
-    # --- Subparser for the 'uniprot' command ---
+    #uniprot options
     parser_uniprot = subparsers.add_parser('uniprot', help='Fetch protein data from UniProt.')
     parser_uniprot.add_argument("--query", type=str, help="UniProt query string.")
     parser_uniprot.add_argument("--organism", type=str, help="Filter by organism.")

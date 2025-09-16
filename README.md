@@ -93,7 +93,29 @@ python main.py search [OPTIONS]
 | `--sequence_column` | `-sc`| **Yes**  |                            | Name of the column in the sequences file that contains the sequences.  |
 | `--output`          |      | No       | `motif_search_results.csv` | Path for the output CSV file that will store the aggregate results.  |
 
-**Example:**
+###Step 3: `uniprot`
+
+You can use the UniProt API to retrieve sequences. 
+
+**Usage:**
+```bash
+python main.py uniprot [OPTIONS]
+```
+
+**Arguments for `uniprot`:**
+
+| Argument | Required | Default Value | Description |
+| --- | --- | --- | --- |
+| `--query` | No | | A general UniProt query string. |
+| `--organism` | No | | Filter by organism name. |
+| `--enzyme_family` | No | | Filter by enzyme family. |
+| `--protein_name` | No | | Filter by protein name. |
+| `--accession` | No | | Filter by accession number. |
+| `--output_csv` | No | `sequences.csv` | The name of the output file. |
+| `--limit` | No | 500 | The maximum number of sequences to retrieve. |
+
+
+**Search Example:**
 ```bash
 # This command searches for motifs defined in 'my_motifs.csv' within the
 # sequences from 'sequences.csv' and saves the results to 'final_results.csv'.

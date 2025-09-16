@@ -10,7 +10,7 @@ import re
 AMINO_ACID_NOMENCLATURE = {
     'A': ['A'], 'C': ['C'], 'D': ['D'], 'E': ['E'], 'F': ['F'], 'G': ['G'], 'H': ['H'], 'I': ['I'], 'K': ['K'], 'L': ['L'], 'M': ['M'], 'N': ['N'], 'P': ['P'], 'Q': ['Q'], 'R': ['R'], 'S': ['S'], 'T': ['T'], 'V': ['V'], 'W': ['W'], 'Y': ['Y'],
     '%': ['A', 'V', 'I', 'L', 'M', 'F', 'Y', 'W'], #hydrophobic
-    '@': ['F', 'Y', 'W', 'H'], #aromatic
+    '@': ['F', 'Y', 'W', 'H'], #aromatic....if you include histidine, its not super strict here, delete if needed
     '&': ['R', 'N', 'D', 'Q', 'E', 'K', 'H', 'S', 'T', 'Y'], #polar
     '[+]': ['K', 'R', 'H'], #positively charged
     '[-]': ['D', 'E'], #negatively charged
@@ -25,7 +25,7 @@ AMINO_ACID_NOMENCLATURE.update(PTM_NOMENCLATURE)
 
 def expand_motif(motif):
     """
-    This will write the motifs into concrete sequences for processing and searching the sequences
+    This will write the motifs into concrete sequences and then you can search through the protein sequence 
     """
     if not motif:
         return [""]
@@ -61,7 +61,7 @@ def expand_motif(motif):
 
 class AhoCorasick:
     """
-    A robust Aho-Corasick automaton for finding multiple patterns in a text.
+    aho corasick for motif searching
     """
     def __init__(self, keywords):
         self._node_count = 1
@@ -119,13 +119,12 @@ class AhoCorasick:
                     results[keyword].append(i)
         return results
 
-#function to run through the searching
+#run motif search
 
 def sanitize_filename(name):
     """Sanitizes a string to be a valid filename."""
-    # Remove or replace invalid characters
+    #clean the filename
     s = re.sub(r'[<>:"/\\|?*()]', '', name)
-    # Replace spaces with underscores
     s = s.replace(' ', '_')
     # Truncate to avoid "File name too long" errors
     return s[:100]
@@ -183,7 +182,7 @@ def run_motif_search(motifs_file, motif_column, sequences_file, name_column, seq
             original_motif = expansion_map[concrete_motif]
             for end_pos in positions:
                 final_results[original_motif].append((end_pos, concrete_motif))
-        ##replace the name with a sanitized version, this is to avoid issues with special characters in names from uniprot
+        ##replace the name with a sanitized version, cause UniProt sometimes has very long names causing issues
         name = sanitize_filename(name)
         
         # saving the json
