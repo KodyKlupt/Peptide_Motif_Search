@@ -155,7 +155,7 @@ def run_motif_search(motifs_file, motif_column, sequences_file, name_column, seq
         return
 
     # timestamped json files for each sequence
-    output_dir_jsons = time.strftime("%Y%m%d_%H%M%S") + "_motif_search_results_jsons"
+    output_dir_jsons = "Outputs/" + time.strftime("%Y%m%d_%H%M%S") + "_motif_search_results_jsons"
     os.makedirs(output_dir_jsons, exist_ok=True)
     print(f"Individual JSON results will be saved in: '{output_dir_jsons}/'")
     
