@@ -13,6 +13,7 @@ The tool is organized into two main functions:
 *   **Multiple Input Formats**: Converts `.pdb`, `.cif`, and `.fasta` files (including DNA sequences, which are translated into proteins) into a uniform format.
 *   **Modular and Extensible**: The logic is separated into distinct scripts for file conversion and motif searching, orchestrated by a central command-line interface.
 *   **Detailed Outputs**: Generates an aggregate CSV file with all results, plus individual JSON files for each sequence with detailed match information.
+*   **Uniprot API**: Integration with the UniProt API for fast retrieval of protein sequences with search features.
 
 ## Project Structure
 
@@ -39,7 +40,7 @@ For the tool to function correctly, please organize your files in the following 
 This project requires a few external Python libraries. You can install them using pip:
 
 ```bash
-pip install pandas biopython biotite
+pip install pandas biopython biotite requests
 ```
 or:
 ```bash
@@ -93,7 +94,7 @@ python main.py search [OPTIONS]
 | `--sequence_column` | `-sc`| **Yes**  |                            | Name of the column in the sequences file that contains the sequences.  |
 | `--output`          |      | No       | `motif_search_results.csv` | Path for the output CSV file that will store the aggregate results.  |
 
-###Step 3: `uniprot`
+### Step 3: `uniprot` (optional)
 
 You can use the UniProt API to retrieve sequences. 
 
@@ -122,9 +123,11 @@ python main.py uniprot [OPTIONS]
 python main.py search \
     --motifs motif_libraries/my_motifs.csv \
     -mc "motif_pattern" \
-    --sequences sequences.csv \
+    --name_column "name" \
+    --sequences "sequences.csv" \
     -sc "sequence" \
-    --output "final_results.csv"
+    --output "final_results.csv" 
+
 ```
 
 ## Input File Formats

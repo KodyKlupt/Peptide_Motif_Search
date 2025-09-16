@@ -66,8 +66,6 @@ def process_protein_files(folder_path, output_csv):
                             #try DNA, sometimes people put DNA in fasta files 
                             dna_seq = NucleotideSequence(sequence_str)
                             concatenated_sequence += translate_dna_forced(dna_seq)
-                            rna_seq = NucleotideSequence(sequence_str.replace("T", "U")) #also for RNA
-                            concatenated_sequence += translate_dna_orf_search(rna_seq)
 
                         except AlphabetError:
                             #if not DNA then just take the protein here
