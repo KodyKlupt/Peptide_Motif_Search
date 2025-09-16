@@ -1,0 +1,16 @@
+{
+    "name": "protein3",
+    "sequence": "MSDSKGSSQKGSRLLLLLVVSNLLLCQGVVSSTTNHQFVVFLHVTYVPAQEKNVTANRSTVVGFLTNYLTRGSVLAF",
+    "results": {
+        "N-{P}-[ST]-{P}": [
+            [
+                55,
+                "NVTA"
+            ],
+            [
+                59,
+                "NRST"
+            ]
+        ]
+    }
+}

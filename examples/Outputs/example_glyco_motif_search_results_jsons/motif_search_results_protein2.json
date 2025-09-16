@@ -1,0 +1,16 @@
+{
+    "name": "protein2",
+    "sequence": "MKKLLTALLSLALVSAATAFGNAKSITESDLIATVDSVLNKPSVALEHVRTGFVVFLHVTYVPAQEKNVTANRSTVVGFLTNYLTRGSVLAF",
+    "results": {
+        "N-{P}-[ST]-{P}": [
+            [
+                70,
+                "NVTA"
+            ],
+            [
+                74,
+                "NRST"
+            ]
+        ]
+    }
+}

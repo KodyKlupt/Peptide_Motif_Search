@@ -1,0 +1,16 @@
+{
+    "name": "protein1",
+    "sequence": "MDSKGSSQKGSRLLLLLVVSNLLLCQGVVSSTTNHQFVVFLHVTYVPAQEKNVTANRSTVVGFLTNYLTRGSVLAF",
+    "results": {
+        "N-{P}-[ST]-{P}": [
+            [
+                54,
+                "NVTA"
+            ],
+            [
+                58,
+                "NRST"
+            ]
+        ]
+    }
+}
