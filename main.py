@@ -113,6 +113,7 @@ def main():
         run_motif_search(
             motifs_file=args.motifs,
             motif_column=args.motif_column,
+            motif_name_column=args.motif_name_column,
             sequences_file=args.sequences,
             sequence_column=args.sequence_column,
             output_file=args.output,

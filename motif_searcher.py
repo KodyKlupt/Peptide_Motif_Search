@@ -129,15 +129,18 @@ def sanitize_filename(name):
     # Truncate to avoid "File name too long" errors
     return s[:100]
 
-def run_motif_search(motifs_file, motif_column, sequences_file, name_column, sequence_column, output_file):
+def run_motif_search(motifs_file, motif_column, sequences_file, name_column, sequence_column, output_file, motif_name_column):
     """
     motif searching
     """
     motifs_to_find = []
+    motif_names = {}
     if os.path.exists(motifs_file):
         with open(motifs_file, 'r', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
-            motifs_to_find = [row[motif_column] for row in reader]
+            for row in reader:
+                motifs_to_find.append(row[motif_column])
+                motif_names[row[motif_column]] = row[motif_name_column]
     else:
         print(f"Warning: Motif file '{motifs_file}' not found. No motifs will be searched.")
 
@@ -177,11 +180,12 @@ def run_motif_search(motifs_file, motif_column, sequences_file, name_column, seq
         automaton = AhoCorasick(unique_expanded_motifs)
         found_concrete_motifs = automaton.search(sequence)
         
-        final_results = collections.defaultdict(list)
+        final_results = collections.defaultdict(lambda: {'motif_name': '', 'matches': []})
         for concrete_motif, positions in found_concrete_motifs.items():
             original_motif = expansion_map[concrete_motif]
+            final_results[original_motif]['motif_name'] = motif_names[original_motif]
             for end_pos in positions:
-                final_results[original_motif].append((end_pos, concrete_motif))
+                final_results[original_motif]['matches'].append((end_pos, concrete_motif))
         ##replace the name with a sanitized version, cause UniProt sometimes has very long names causing issues
         name = sanitize_filename(name)
         
