@@ -207,3 +207,8 @@ The `search` command produces two types of output:
     }
 }
 ```
+
+## Speed test for those interested...
+
+### On M3 Macbook Air, 16 GB RAM:
+Peptide motif search identified the kinase consensus sequences (motif library size 151,394, each motif ~13 A.A.) in 100 random kinase substrate proteins (from UniProt Query "human kinase protein substrate") in ~57 seconds. 
