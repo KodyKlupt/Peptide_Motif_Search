@@ -90,6 +90,7 @@ python main.py search [OPTIONS]
 | ------------------- | ---- | -------- | -------------------------- | -------------------------------------------------------------------- |
 | `--motifs`          |      | **Yes**  | `motifs.csv`               | Path to the CSV file containing the motifs to search for.            |
 | `--motif_column`    | `-mc`| **Yes**  |                            | Name of the column in the motif file that contains the motifs.         |
+| `--motif_name_column` | `-mnc` | No       | `motif_name`               | Name of the column in the motif file that contains the motif names.    |
 | `--sequences`       |      | **Yes**  | `sequences.csv`            | Path to the CSV file containing the protein sequences.               |
 | `--sequence_column` | `-sc`| **Yes**  |                            | Name of the column in the sequences file that contains the sequences.  |
 | `--output`          |      | No       | `motif_search_results.csv` | Path for the output CSV file that will store the aggregate results.  |
@@ -123,6 +124,7 @@ python main.py uniprot [OPTIONS]
 python main.py search \
     --motifs motif_libraries/my_motifs.csv \
     -mc "motif_pattern" \
+    -mnc "motif_name" \
     --name_column "name" \
     --sequences "sequences.csv" \
     -sc "sequence" \
@@ -180,12 +182,12 @@ The `search` command produces two types of output:
 1.  **Aggregate CSV File (`--output`)**: A single CSV file summarizing all findings.
     *   `name`: The name of the sequence from the input file.
     *   `sequence`: The full protein sequence.
-    *   `motifs`: A JSON string containing a dictionary where keys are the original motifs and values are a list of all matches found. Each match includes the end position and the specific concrete motif that matched.
+    *   `motifs`: A JSON string containing a dictionary where keys are the original motifs. Each value is a dictionary containing the `motif_name` and a list of `matches`. Each match includes the end position and the specific concrete motif that matched.
 
 2.  **Individual JSON Files**: For each sequence processed, a detailed JSON file is saved in a timestamped directory (e.g., `20250725_163000_motif_search_results_jsons/`).
     *   `name`: The name of the sequence.
     *   `sequence`: The full protein sequence.
-    *   `results`: A dictionary where keys are the original motifs found. The values are lists of `[end_position, "concrete_motif"]` pairs.
+    *   `results`: A dictionary where keys are the original motifs found. The values are dictionaries containing the `motif_name` and a list of `matches`, where each match is a `[end_position, "concrete_motif"]` pair.
 
 *Example JSON (`motif_search_results_ProteinA.json`):*
 ```json
@@ -193,12 +195,15 @@ The `search` command produces two types of output:
     "name": "ProteinA",
     "sequence": "MDSGSEYGPLVHEFKRSTP...",
     "results": {
-        "R[ST]xP": [
-            [
-                18,
-                "RSTP"
+        "R[ST]xP": {
+            "motif_name": "Kinase Motif",
+            "matches": [
+                [
+                    18,
+                    "RSTP"
+                ]
             ]
-        ]
+        }
     }
 }
 ```

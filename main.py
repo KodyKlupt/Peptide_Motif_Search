@@ -49,6 +49,13 @@ def main():
         help='Name of the column containing motifs in the motif file.'
     )
     parser_search.add_argument(
+        '-mnc', '--motif_name_column', 
+        dest='motif_name_column', 
+        type=str, 
+        default='motif_name',
+        help='Name of the column containing motif names in the motif file.'
+    )
+    parser_search.add_argument(
         '--sequences', 
         type=str, 
         default='sequences.csv', 
