@@ -1,0 +1,47 @@
+{
+  "motif_name": "Kinase Active Site (DFG-in)",
+  "description": "A motif representing the active conformation (DFG-in) of a kinase active site. It includes the catalytic lysine and the DFG motif.",
+  "components": [
+    {
+      "id": "lys",
+      "residue_type": "LYS",
+      "atom_selectors": {
+        "amine_nitrogen": "NZ"
+      }
+    },
+    {
+      "id": "asp",
+      "residue_type": "ASP",
+      "atom_selectors": {
+        "carboxyl_oxygen_delta1": "OD1"
+      }
+    },
+    {
+      "id": "phe",
+      "residue_type": "PHE",
+      "atom_selectors": {
+        "phenyl_carbon_zeta": "CZ"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "type": "distance",
+      "atoms": ["lys.amine_nitrogen", "asp.carboxyl_oxygen_delta1"],
+      "value": 5.0,
+      "tolerance": 1.5
+    },
+    {
+      "type": "distance",
+      "atoms": ["lys.amine_nitrogen", "phe.phenyl_carbon_zeta"],
+      "value": 10.0,
+      "tolerance": 2.0
+    },
+    {
+      "type": "distance",
+      "atoms": ["asp.carboxyl_oxygen_delta1", "phe.phenyl_carbon_zeta"],
+      "value": 7.0,
+      "tolerance": 2.0
+    }
+  ]
+}

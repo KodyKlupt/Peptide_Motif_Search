@@ -1,7 +1,0 @@
-source_file,motif_id,residue_1,residue_2,residue_3
-1AQ7.cif,1AQ7_motif_1,HIS-A-57,ASP-A-102,SER-A-195
-1AQ7.cif,1AQ7_motif_2,HIS-A-57,ASP-A-102,SER-A-214
-1AQ7.pdb,1AQ7_motif_1,HIS-A-57,ASP-A-102,SER-A-195
-1AQ7.pdb,1AQ7_motif_2,HIS-A-57,ASP-A-102,SER-A-214
-9eh6.cif,NO_MOTIF_FOUND,,,
-9eh6.pdb,NO_MOTIF_FOUND,,,
