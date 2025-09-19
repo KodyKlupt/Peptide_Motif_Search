@@ -1,12 +1,21 @@
-# Protein Motif Search Tool
+# Protein Motif Search Tools
 
-This command-line tool provides a powerful and flexible way to search for protein motifs within sequences. It uses the efficient Aho-Corasick algorithm for fast pattern matching and supports a rich nomenclature for defining complex motifs.
+This command-line tool provides a powerful and flexible way to search for protein motifs within sequences and structures. It is organized into two main tools:
+
+1.  **Sequence Motif Search**: Searches for motifs in protein sequences using a rich nomenclature for defining complex patterns.
+2.  **Structure Motif Search**: Searches for 3D structural motifs in protein structures using a flexible JSON-based definition format.
+
+---
+
+## Sequence Motif Search
+
+This tool uses the efficient Aho-Corasick algorithm for fast pattern matching and supports a rich nomenclature for defining complex motifs.
 
 The tool is organized into two main functions:
 1.  **Convert**: Processes various biological file formats (`.pdb`, `.cif`, `.fasta`) into a standardized CSV format containing protein sequences.
 2.  **Search**: Scans the sequence CSV file to find all occurrences of specified motifs.
 
-## Features
+### Features
 
 *   **Efficient Searching**: Utilizes the Aho-Corasick algorithm to find multiple motifs in a single pass.
 *   **Flexible Motif Definition**: Supports a rich nomenclature including wildcards, custom character sets, exclusions, and biochemical property groups.
@@ -15,7 +24,7 @@ The tool is organized into two main functions:
 *   **Detailed Outputs**: Generates an aggregate CSV file with all results, plus individual JSON files for each sequence with detailed match information.
 *   **Uniprot API**: Integration with the UniProt API for fast retrieval of protein sequences with search features.
 
-## Project Structure
+### Project Structure
 
 For the tool to function correctly, please organize your files in the following directory structure:
 
@@ -35,12 +44,12 @@ For the tool to function correctly, please organize your files in the following 
 └── sequences.csv           # OUTPUT: Default output for the 'convert' command
 ```
 
-## Installation
+### Installation
 
 This project requires a few external Python libraries. You can install them using pip:
 
 ```bash
-pip install pandas biopython biotite requests
+pip install pandas biopython biotite requests numpy
 ```
 or:
 ```bash
@@ -48,11 +57,11 @@ pip install -r requirements.txt
 ```
 
 
-## How to Use
+### How to Use
 
 The tool is controlled through `main.py` and has two primary commands: `convert` and `search`. You must choose one of them.
 
-### Step 1: `convert` (Optional)
+#### `convert` (Optional)
 
 If your protein sequences are in `.pdb`, `.cif`, or `.fasta` files, you first need to convert them into a single `sequences.csv` file. If you already have a CSV file with protein sequences, you can skip this step.
 
@@ -68,14 +77,7 @@ python main.py convert [OPTIONS]
 | `--input_folder`  | `protein_files`   | Path to the folder containing your protein source files.  |
 | `--output_csv`    | `sequences.csv`   | Path for the generated CSV file of sequences.           |
 
-**Example:**
-```bash
-# This command reads all files from the 'protein_files' directory
-# and creates 'sequences.csv' with the extracted protein sequences.
-python main.py convert --input_folder protein_files --output_csv sequences.csv
-```
-
-### Step 2: `search`
+#### `search`
 
 Once you have a `sequences.csv` file, you can search for motifs. You will also need a separate CSV file containing the motifs you want to find.
 
@@ -95,7 +97,7 @@ python main.py search [OPTIONS]
 | `--sequence_column` | `-sc`| **Yes**  |                            | Name of the column in the sequences file that contains the sequences.  |
 | `--output`          |      | No       | `motif_search_results.csv` | Path for the output CSV file that will store the aggregate results.  |
 
-### Step 3: `uniprot` (optional)
+#### `uniprot` (optional)
 
 You can use the UniProt API to retrieve sequences. 
 
@@ -117,22 +119,7 @@ python main.py uniprot [OPTIONS]
 | `--limit` | No | 500 | The maximum number of sequences to retrieve. |
 
 
-**Search Example:**
-```bash
-# This command searches for motifs defined in 'my_motifs.csv' within the
-# sequences from 'sequences.csv' and saves the results to 'final_results.csv'.
-python main.py search \
-    --motifs motif_libraries/my_motifs.csv \
-    -mc "motif_pattern" \
-    -mnc "motif_name" \
-    --name_column "name" \
-    --sequences "sequences.csv" \
-    -sc "sequence" \
-    --output "final_results.csv" 
-
-```
-
-## Input File Formats
+### Input File Formats
 
 #### Sequences File (`--sequences`)
 
@@ -156,7 +143,7 @@ M001,R[ST]xP,"A common kinase motif"
 M002,{P}G,"Proline-Glysine exclusion"
 M003,#x[+],"Aliphatic followed by any aa and a positive charge"```
 
-## Motif Nomenclature
+### Motif Nomenclature
 
 The power of this tool comes from its flexible motif syntax. The following special characters can be used in the `--motif_column`:
 
@@ -175,7 +162,7 @@ The power of this tool comes from its flexible motif syntax. The following speci
 
 *Note: Post-translational modifications (e.g., `[Y:po]`) are also supported and map to their base amino acid.*
 
-## Output Format
+### Output Format
 
 The `search` command produces two types of output:
 
@@ -188,27 +175,145 @@ The `search` command produces two types of output:
     *   `name`: The name of the sequence.
     *   `sequence`: The full protein sequence.
     *   `results`: A dictionary where keys are the original motifs found. The values are dictionaries containing the `motif_name` and a list of `matches`, where each match is a `[end_position, "concrete_motif"]` pair.
+```
 
-*Example JSON (`motif_search_results_ProteinA.json`):*
+## Structural Motif Search
+
+This tool searches for 3D structural motifs in protein structures (`.pdb`, `.cif`).
+
+### How to Use
+
+**Usage:**
+```bash
+python structure_motif/search_3d_motif.py [OPTIONS]
+```
+
+**Arguments:**
+
+| Argument | Flag | Required | Description |
+| --- | --- | --- | --- |
+| `--input_folder` | `-i` | **Yes** | Folder with PDB/CIF files. |
+| `--motif_file` | `-m` | **Yes** | JSON motif definition file. |
+| `--output_folder` | `-o` | **Yes** | Folder to save JSON results. |
+| `--summary_csv` | `-s` | **Yes** | Final summary CSV file. |
+
+### Example Usage
+
+To run the structural motif search, you need to provide the input folder containing your protein structure files, the motif definition file, the output folder for the detailed JSON results, and the summary CSV file.
+
+Here is an example command:
+
+```bash
+python structure_motif/search_3d_motif.py \
+    --input_folder protein_files \
+    --motif_file structure_motif/motifs/catalytic_triad.json \
+    --output_folder outputs \
+    --summary_csv summary.csv
+```
+
+This command will:
+- Search for the catalytic triad motif defined in `structure_motif/motifs/catalytic_triad.json`.
+- Look for matching structures in all `.pdb` and `.cif` files within the `protein_files` directory.
+- Save a detailed JSON file for each input structure in the `outputs` directory.
+- Generate a `summary.csv` file containing a summary of all found motifs.
+
+
+
+### Structural Motif Definition
+
+Structural motifs are defined in a JSON file. The format is described in detail in `structure_motif/motifs/motif_format_documentation.md`.
+
+Here is an example of a catalytic triad motif:
+
 ```json
 {
-    "name": "ProteinA",
-    "sequence": "MDSGSEYGPLVHEFKRSTP...",
-    "results": {
-        "R[ST]xP": {
-            "motif_name": "Kinase Motif",
-            "matches": [
-                [
-                    18,
-                    "RSTP"
-                ]
-            ]
-        }
+  "motif_name": "Catalytic Triad",
+  "description": "A classic Ser-His-Asp catalytic triad.",
+  "components": [
+    {
+      "id": "ser",
+      "residue_type": "SER",
+      "atom_selectors": {
+        "hydroxyl_oxygen": "OG",
+        "beta_carbon": "CB"
+      }
+    },
+    {
+      "id": "his",
+      "residue_type": "HIS",
+      "atom_selectors": {
+        "imidazole_nitrogen_delta": "ND1"
+      }
+    },
+    {
+      "id": "asp",
+      "residue_type": "ASP",
+      "atom_selectors": {
+        "carboxyl_oxygen_delta1": "OD1"
+      }
     }
+  ],
+  "constraints": [
+    {
+      "type": "distance",
+      "atoms": ["ser.hydroxyl_oxygen", "his.imidazole_nitrogen_delta"],
+      "value": 3.0,
+      "tolerance": 0.5
+    },
+    {
+      "type": "distance",
+      "atoms": ["his.imidazole_nitrogen_delta", "asp.carboxyl_oxygen_delta1"],
+      "value": 3.0,
+      "tolerance": 0.5
+    }
+  ]
 }
 ```
 
-## Speed test for those interested...
+### Output Format
 
-### On M3 Macbook Air, 16 GB RAM:
-Peptide motif search identified the kinase consensus sequences (motif library size 151,394, each motif ~13 A.A.) in 100 random kinase substrate proteins (from UniProt Query "human kinase protein substrate") in ~57 seconds. 
+The structural motif search produces two types of output:
+
+1.  **Summary CSV File (`--summary_csv`)**: A single CSV file summarizing all findings.
+    *   `source_file`: The name of the PDB/CIF file.
+    *   `motif_id`: A unique identifier for the found motif.
+    *   `residue_1`, `residue_2`, ...: The residues that form the motif, in the format `RES-CHAIN-RESID` (e.g., `SER-A-123`).
+
+2.  **Individual JSON Files (`--output_folder`)**: For each input structure, a detailed JSON file is saved.
+    *   `source_file`: The name of the PDB/CIF file.
+    *   `motifs_found`: The number of motifs found in the file.
+    *   `matches`: A list of found motifs, where each motif is a list of residues with their details (name, chain, and residue ID).
+
+*Example JSON output (`1AQ7.json`):*
+```json
+{
+  "source_file": "1AQ7.cif",
+  "motifs_found": 1,
+  "matches": [
+    {
+      "residues": [
+        {
+          "res_name": "SER",
+          "chain_id": "A",
+          "res_id": 195
+        },
+        {
+          "res_name": "HIS",
+          "chain_id": "A",
+          "res_id": 57
+        },
+        {
+          "res_name": "ASP",
+          "chain_id": "A",
+          "res_id": 102
+        }
+      ]
+    }
+  ]
+}
+```
+### Motif Format Documentation
+For additional info on parsing motifs structurally using constraints such as bond angles, dihedrals, radius exclusion spheres, distance, and secondary structure, see ```motif_format_documentation.md``` for help with JSON motif definition formatting.
+
+## Benchmarking
+Due to its efficient use of an Aho-Corasick search algorithm to locate sequence motifs, the sequence motif search looked for 151,394 unique kinase consensus motifs on 100 substrate proteins of varying lengths (UniProt query: human kinase substrate protein) in ~57 seconds on M3 Macbook Air.

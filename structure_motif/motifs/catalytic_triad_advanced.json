@@ -1,0 +1,74 @@
+{
+  "motif_name": "Ser-His-Asp Catalytic Triad (Advanced)",
+  "description": "A catalytic triad motif with advanced geometric and structural constraints.",
+  "components": [
+    {
+      "id": "ser",
+      "residue_type": "SER",
+      "atom_selectors": {
+        "hydroxyl_oxygen": "OG",
+        "beta_carbon": "CB"
+      }
+    },
+    {
+      "id": "his",
+      "residue_type": "HIS",
+      "atom_selectors": {
+        "imidazole_nitrogen_delta": "ND1",
+        "alpha_carbon": "CA",
+        "beta_carbon": "CB",
+        "gamma_carbon": "CG"
+      }
+    },
+    {
+      "id": "asp",
+      "residue_type": "ASP",
+      "atom_selectors": {
+        "carboxyl_oxygen_delta1": "OD1"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "type": "distance",
+      "atoms": ["ser.hydroxyl_oxygen", "his.imidazole_nitrogen_delta"],
+      "value": 4.8,
+      "tolerance": 0.6
+    },
+    {
+      "type": "distance",
+      "atoms": ["his.imidazole_nitrogen_delta", "asp.carboxyl_oxygen_delta1"],
+      "value": 3.4,
+      "tolerance": 0.6
+    },
+    {
+      "type": "angle",
+      "atoms": ["his.imidazole_nitrogen_delta", "ser.hydroxyl_oxygen", "ser.beta_carbon"],
+      "value": 89.0,
+      "tolerance": 15.0
+    },
+    {
+      "type": "dihedral",
+      "atoms": ["his.alpha_carbon", "his.beta_carbon", "his.gamma_carbon", "his.imidazole_nitrogen_delta"],
+      "value": -109.0,
+      "tolerance": 20.0
+    },
+    {
+      "type": "secondary_structure",
+      "component_id": "ser",
+      "value": ["T", "S", "-"]
+    },
+    {
+      "type": "accessibility",
+      "component_id": "his",
+      "comparison": "greater_than",
+      "value": 0.2
+    },
+    {
+      "type": "exclusion_sphere",
+      "component_id": "ser",
+      "atom_selector": "hydroxyl_oxygen",
+      "radius": 2.5
+    }
+  ]
+}

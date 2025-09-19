@@ -1,0 +1,56 @@
+{
+  "motif_name": "Ser-His-Asp Catalytic Triad",
+  "description": "A common catalytic motif found in hydrolase enzymes, particularly serine proteases. Distances corrected for 1AQ7.",
+  "components": [
+    {
+      "id": "ser",
+      "residue_type": "SER",
+      "atom_selectors": {
+        "hydroxyl_oxygen": "OG",
+        "alpha_carbon": "CA"
+      }
+    },
+    {
+      "id": "his",
+      "residue_type": "HIS",
+      "atom_selectors": {
+        "imidazole_nitrogen_delta": "ND1",
+        "alpha_carbon": "CA"
+      }
+    },
+    {
+      "id": "asp",
+      "residue_type": "ASP",
+      "atom_selectors": {
+        "carboxyl_oxygen_delta1": "OD1",
+        "alpha_carbon": "CA"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "type": "distance",
+      "atoms": ["ser.hydroxyl_oxygen", "his.imidazole_nitrogen_delta"],
+      "value": 4.8,
+      "tolerance": 0.6
+    },
+    {
+      "type": "distance",
+      "atoms": ["his.imidazole_nitrogen_delta", "asp.carboxyl_oxygen_delta1"],
+      "value": 3.4,
+      "tolerance": 0.6
+    },
+    {
+      "type": "distance",
+      "atoms": ["ser.alpha_carbon", "his.alpha_carbon"],
+      "value": 6.5,
+      "tolerance": 1.5
+    },
+    {
+      "type": "distance",
+      "atoms": ["his.alpha_carbon", "asp.alpha_carbon"],
+      "value": 5.2,
+      "tolerance": 1.5
+    }
+  ]
+}
