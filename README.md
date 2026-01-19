@@ -6,6 +6,8 @@ This command-line tool provides a powerful and flexible way to search for protei
 2.  **Structure Motif Search**: Searches for 3D structural motifs in protein structures using a flexible JSON-based definition format.
 
 ---
+NEW: Try using the example notebooks to get started with the sequence and structure motif search tools.
+---
 
 ## Sequence Motif Search
 
