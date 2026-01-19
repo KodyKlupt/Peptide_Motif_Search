@@ -3,3 +3,5 @@ biopython
 biotite
 requests
 numpy
+ipykernel
+py3Dmol
