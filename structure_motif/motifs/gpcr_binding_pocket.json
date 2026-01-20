@@ -1,0 +1,62 @@
+{
+  "motif_name": "GPCR Orthosteric Binding Pocket",
+  "description": "Binding pocket motif for Class A GPCRs based on beta-2 adrenergic receptor (2RH1). Key residues: Asp113 (TM3 anchor), Trp286 (TM6 toggle switch), Phe289 (TM6 aromatic).",
+  "components": [
+    {
+      "id": "asp_anchor",
+      "residue_type": "ASP",
+      "atom_selectors": {
+        "carboxyl_oxygen": "OD1",
+        "alpha_carbon": "CA"
+      }
+    },
+    {
+      "id": "trp_toggle",
+      "residue_type": "TRP",
+      "atom_selectors": {
+        "indole_nitrogen": "NE1",
+        "alpha_carbon": "CA"
+      }
+    },
+    {
+      "id": "phe_aromatic",
+      "residue_type": "PHE",
+      "atom_selectors": {
+        "ring_center": "CG",
+        "alpha_carbon": "CA"
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "type": "distance",
+      "description": "Asp CA to Trp CA (TM3 to TM6) - actual: 12.9 A",
+      "atoms": [
+        "asp_anchor.alpha_carbon",
+        "trp_toggle.alpha_carbon"
+      ],
+      "value": 12.9,
+      "tolerance": 2.5
+    },
+    {
+      "type": "distance",
+      "description": "Trp CA to Phe CA (within TM6) - actual: 5.4 A",
+      "atoms": [
+        "trp_toggle.alpha_carbon",
+        "phe_aromatic.alpha_carbon"
+      ],
+      "value": 5.4,
+      "tolerance": 2.0
+    },
+    {
+      "type": "distance",
+      "description": "Asp OD1 to Trp NE1 (functional groups) - actual: 8.1 A",
+      "atoms": [
+        "asp_anchor.carboxyl_oxygen",
+        "trp_toggle.indole_nitrogen"
+      ],
+      "value": 8.1,
+      "tolerance": 2.5
+    }
+  ]
+}

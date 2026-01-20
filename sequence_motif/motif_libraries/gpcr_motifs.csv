@@ -1,0 +1,16 @@
+motif_name,consensus
+DRY_Motif,DRY
+ERY_Motif,ERY
+NPXXY_Motif,NPxxY
+CWxP_Toggle,CWxP
+PIF_Motif,PIF
+YCCxCRxC_Disulfide,[+]CC{P}C
+TM3_Conserved,[DE]R[YF]
+TM7_Helix8,NPxxYx[VILF]x[VILF]
+Ionic_Lock,[DE]R
+GProtein_Coupling,BBxxB
+Palmitoylation_Site,Cxx[LIVM]
+PKA_Phospho,RRx[ST]
+PKC_Phospho,[ST]x[RK]
+GRK_Target_Site,[DE][DE][ST][ST]
+Arrestin_Binding,[ST]xxx[ST]
