@@ -1,0 +1,7 @@
+motif_name,consensus
+Ser_Catalytic,GxSxG
+PETase_GxSxG,GxSMG
+Disulfide_Motif,CxxC
+Alpha_Beta_Hydrolase,GxSxxG
+His_Active,GH[ST]
+PET_Recognition,[FYW]xx[ST]

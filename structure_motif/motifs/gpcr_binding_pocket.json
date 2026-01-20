@@ -1,6 +1,6 @@
 {
   "motif_name": "GPCR Orthosteric Binding Pocket",
-  "description": "Binding pocket motif for Class A GPCRs based on beta-2 adrenergic receptor (2RH1). Key residues: Asp113 (TM3 anchor), Trp286 (TM6 toggle switch), Phe289 (TM6 aromatic).",
+  "description": "Binding pocket motif for GPCRs based on beta-2 adrenergic receptor (2RH1)",
   "components": [
     {
       "id": "asp_anchor",
@@ -30,7 +30,7 @@
   "constraints": [
     {
       "type": "distance",
-      "description": "Asp CA to Trp CA (TM3 to TM6) - actual: 12.9 A",
+      "description": "Asp CA to Trp CA",
       "atoms": [
         "asp_anchor.alpha_carbon",
         "trp_toggle.alpha_carbon"
@@ -40,7 +40,7 @@
     },
     {
       "type": "distance",
-      "description": "Trp CA to Phe CA (within TM6) - actual: 5.4 A",
+      "description": "Trp CA to Phe CA",
       "atoms": [
         "trp_toggle.alpha_carbon",
         "phe_aromatic.alpha_carbon"
@@ -50,7 +50,7 @@
     },
     {
       "type": "distance",
-      "description": "Asp OD1 to Trp NE1 (functional groups) - actual: 8.1 A",
+      "description": "Asp OD1 to Trp NE1",
       "atoms": [
         "asp_anchor.carboxyl_oxygen",
         "trp_toggle.indole_nitrogen"

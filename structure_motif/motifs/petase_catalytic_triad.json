@@ -1,0 +1,72 @@
+{
+    "motif_name": "PETase Catalytic Triad",
+    "description": "Serine hydrolase catalytic triad found in PET-degrading enzymes (PETase).",
+    "components": [
+        {
+            "id": "ser_nucleophile",
+            "residue_type": "SER",
+            "atom_selectors": {
+                "hydroxyl_oxygen": "OG",
+                "alpha_carbon": "CA"
+            }
+        },
+        {
+            "id": "his_base",
+            "residue_type": "HIS",
+            "atom_selectors": {
+                "imidazole_cg": "CG",
+                "alpha_carbon": "CA"
+            }
+        },
+        {
+            "id": "asp_acidic",
+            "residue_type": "ASP",
+            "atom_selectors": {
+                "carboxyl_oxygen": "OD1",
+                "alpha_carbon": "CA"
+            }
+        }
+    ],
+    "constraints": [
+        {
+            "type": "distance",
+            "description": "Ser OG to His CG",
+            "atoms": [
+                "ser_nucleophile.hydroxyl_oxygen",
+                "his_base.imidazole_cg"
+            ],
+            "value": 5.0,
+            "tolerance": 1.5
+        },
+        {
+            "type": "distance",
+            "description": "His CG to Asp OD1",
+            "atoms": [
+                "his_base.imidazole_cg",
+                "asp_acidic.carboxyl_oxygen"
+            ],
+            "value": 3.5,
+            "tolerance": 1.0
+        },
+        {
+            "type": "distance",
+            "description": "Ser CA to His CA",
+            "atoms": [
+                "ser_nucleophile.alpha_carbon",
+                "his_base.alpha_carbon"
+            ],
+            "value": 8.2,
+            "tolerance": 2.0
+        },
+        {
+            "type": "distance",
+            "description": "His CA to Asp CA",
+            "atoms": [
+                "his_base.alpha_carbon",
+                "asp_acidic.alpha_carbon"
+            ],
+            "value": 4.5,
+            "tolerance": 1.5
+        }
+    ]
+}
