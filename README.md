@@ -893,13 +893,3 @@ python structure_motif/search_3d_motif.py \
     -s gpcr_pocket_analysis.csv
 ```
 ---
-
-### Quick Reference
-
-| Task | Command |
-|------|---------|
-| Convert PDB files | `python main.py convert --input_folder pdbs --output_csv seqs.csv` |
-| Get UniProt sequences | `python main.py uniprot --organism human --output_csv human.csv` |
-| Search sequence motifs | `python main.py search --motifs m.csv -mc pattern --sequences s.csv -sc seq` |
-| Search structural motifs | `python structure_motif/search_3d_motif.py -i pdbs -m motif.json -o out -s sum.csv` |
-
